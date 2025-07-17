@@ -266,6 +266,9 @@ type Config struct {
 	// The global url prefix.
 	UrlPrefix string `json:"prefix,omitempty" yaml:"prefix,omitempty" ini:"prefix,omitempty"`
 
+	// The prefix of tables in database.
+	TablePrefix string `json:"table_prefix"`
+
 	// The theme name of template.
 	Theme string `json:"theme,omitempty" yaml:"theme,omitempty" ini:"theme,omitempty"`
 

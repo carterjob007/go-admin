@@ -52,3 +52,12 @@ func (db *Base) CreateDB(name string, beans ...interface{}) error {
 func (db *Base) GetConfig(name string) config.Database {
 	return db.Configs[name]
 }
+
+func (db *Base) GetTablePrefix() string {
+	return db.Configs[name].TablePrefix
+}
+
+// Name get conn name.
+func (db *Base) Name() string {
+	return db.Configs[name].Name
+}

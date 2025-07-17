@@ -12,6 +12,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/GoAdminGroup/go-admin/modules/config"
 	"github.com/GoAdminGroup/go-admin/modules/db/dialect"
 	"github.com/GoAdminGroup/go-admin/modules/logger"
 )
@@ -62,7 +63,7 @@ func newSQL() *SQL {
 // TableName return a SQL with given table and default connection.
 func Table(table string) *SQL {
 	sql := newSQL()
-	sql.TableName = table
+	sql.TableName = config.Get().TablePrefix + table
 	sql.conn = "default"
 	return sql
 }
@@ -107,8 +108,15 @@ func (sql *SQL) WithTx(tx *dbsql.Tx) *SQL {
 // TableName set table of SQL.
 func (sql *SQL) Table(table string) *SQL {
 	sql.clean()
-	sql.TableName = table
+	sql.TableName = config.Get().TablePrefix + table
 	return sql
+}
+
+func GetTablePrefix(conn Connection) string {
+	if conn != nil && conn.GetConfig() != nil && conn.GetConfig().TablePrefix != "" {
+		return conn.GetConfig().TablePrefix
+	}
+	return ""
 }
 
 // Select set select fields.

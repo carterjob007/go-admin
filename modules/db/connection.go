@@ -71,6 +71,21 @@ type Connection interface {
 	GetConfig(name string) config.Database
 
 	CreateDB(name string, beans ...interface{}) error
+	GetTablePrefix() string
+}
+
+type Base struct {
+	DbList map[string]*sql.DB
+	config config.Database
+	name   string
+}
+
+func (db *Base) GetConfig() config.Database {
+	return db.config
+}
+
+func (db *Base) GetTablePrefix() string {
+	return db.config.TablePrefix
 }
 
 // GetConnectionByDriver return the Connection by given driver name.
